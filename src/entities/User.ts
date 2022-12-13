@@ -7,11 +7,11 @@ export type UserId = DocId
 
 export type User = {
   userId: UserId
-  currentMatch: MatchId
-  createdAt: FieldValue
+  currentMatch: MatchId | null
+  createdAt: Date
   profileImageUrl: string
   rating: number
-  twitterId: string
-  updatedAt: FieldValue
+  twitterId?: string
+  updatedAt: Date
   username: string
 }

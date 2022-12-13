@@ -9,7 +9,7 @@ export type Rule = 'gachi' | 'casual'
 
 export type Result = 'win' | 'lose'
 
-export type MatchStatus = 'initial' | 'ready' | 'fighting' | 'finish'
+export type MatchStatus = 'initial' | 'preparing' | 'fighting' | 'finish'
 
 export type MatchUser = {
   userId: UserId
@@ -25,6 +25,7 @@ export type Match = {
   roundWinnerIds: Array<UserId>
   rule: Rule
   season: number
+  status: MatchStatus
   updatedAt: FieldValue
   users: Array<MatchUser>
   winnerUserId: UserId

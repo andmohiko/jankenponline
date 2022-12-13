@@ -1,7 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 
-import { FlexBox } from '../FlexBox'
-
+import { FlexBox } from '~/components/FlexBox'
 import { PageHead } from '~/components/Head'
 import { SpWidth } from '~/components/Layouts/SpWidth'
 

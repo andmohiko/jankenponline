@@ -14,7 +14,7 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
-const firestore = getFirestore(app)
+const db = getFirestore(app)
 const serverTimestamp = getServerTimeStamp()
 
-export { firestore, serverTimestamp }
+export { db, serverTimestamp }
