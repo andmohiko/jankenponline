@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { MatchUser } from '../entities/Match'
+import { MatchRequest } from '../entities/MatchRequest'
 import { serverTimestamp } from '../firebase'
 import JoinMatchRepository from '../repositories/JoinMatchRepository'
 import MatchRepository from '../repositories/MatchRepository'
@@ -22,11 +22,24 @@ export default class MatchUsersUseCase {
 
   async execute(
     batch: admin.firestore.WriteBatch,
-    me: MatchUser,
-    opponent: MatchUser,
+    myRequest: MatchRequest,
+    opponentRequest: MatchRequest,
     rule: 'gachi' | 'casual',
     season: number,
   ) {
+    const me = {
+      profileImageUrl: myRequest.profileImageUrl,
+      rating: myRequest.rating,
+      userId: myRequest.userId,
+      username: myRequest.username,
+    }
+    const opponent = {
+      profileImageUrl: opponentRequest.profileImageUrl,
+      rating: opponentRequest.rating,
+      userId: opponentRequest.userId,
+      username: opponentRequest.username,
+    }
+
     const matchId = this.matchRepository.createByBatch(batch, {
       createdAt: serverTimestamp,
       rule,
@@ -63,5 +76,18 @@ export default class MatchUsersUseCase {
       status: 'fighting',
       updatedAt: serverTimestamp,
     })
+
+    this.matchRequestRepository.updateByBatch(batch, myRequest.matchRequestId, {
+      status: 'matched',
+      updatedAt: serverTimestamp,
+    })
+    this.matchRequestRepository.updateByBatch(
+      batch,
+      opponentRequest.matchRequestId,
+      {
+        status: 'matched',
+        updatedAt: serverTimestamp,
+      },
+    )
   }
 }

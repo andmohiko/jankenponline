@@ -31,6 +31,7 @@ const onCreateMatchRequest = functions.firestore
         const batch = db.batch()
         // マッチできる人がいればマッチする
         const matchRequests = await matchRequestRepository.fetchSearching()
+        console.log('len', matchRequests.length)
         if (matchRequests.length > 0) {
           // TODO: 探すロジックの精度を上げる
           const opponentRequest = matchRequests.filter(
@@ -39,18 +40,8 @@ const onCreateMatchRequest = functions.firestore
 
           await matchUsersUseCase.execute(
             batch,
-            {
-              profileImageUrl: matchRequest.profileImageUrl,
-              rating: matchRequest.rating,
-              userId: matchRequest.userId,
-              username: matchRequest.username,
-            },
-            {
-              profileImageUrl: opponentRequest.profileImageUrl,
-              rating: opponentRequest.rating,
-              userId: opponentRequest.userId,
-              username: opponentRequest.username,
-            },
+            matchRequest,
+            opponentRequest,
             'gachi',
             0,
           )
@@ -58,10 +49,6 @@ const onCreateMatchRequest = functions.firestore
           // マッチできる人がいなければステータスをマッチング中にする
           userRepository.updateByBatch(batch, matchRequest.userId, {
             status: 'matching',
-            updatedAt: serverTimestamp,
-          })
-          matchRequestRepository.updateByBatch(batch, matchRequestId, {
-            status: 'searching',
             updatedAt: serverTimestamp,
           })
         }
