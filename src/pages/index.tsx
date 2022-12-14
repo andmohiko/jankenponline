@@ -4,6 +4,7 @@ import type { NextPage } from 'next'
 
 import { FlexBox } from '~/components/Base/FlexBox'
 import { BaseButton } from '~/components/Buttons/BaseButton'
+import { LinkButton } from '~/components/Buttons/LinkButton'
 import { DefaultLayout } from '~/components/Layouts/DefaultLayout'
 import { useUserState } from '~/hooks/useUserState'
 import StartMatchingUseCase from '~/usecases/StartMatchingUseCase'
@@ -39,7 +40,11 @@ const Home: NextPage = () => {
           キャンセル
         </BaseButton>
       </FlexBox>
-      {user?.currentMatch && <a>マッチしたよ</a>}
+      {user?.currentMatch && (
+        <a href={`/matches/${user.currentMatch}`}>
+          <LinkButton>対戦に進む</LinkButton>
+        </a>
+      )}
     </DefaultLayout>
   )
 }
