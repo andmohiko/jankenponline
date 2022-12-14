@@ -1,35 +1,46 @@
+import { useState } from 'react'
+
 import type { NextPage } from 'next'
 
+import { FlexBox } from '~/components/Base/FlexBox'
 import { BaseButton } from '~/components/Buttons/BaseButton'
 import { DefaultLayout } from '~/components/Layouts/DefaultLayout'
-import { User } from '~/entities/User'
-import MatchRequestRepository from '~/usecases/StartMatchingUseCase'
+import { useUserState } from '~/hooks/useUserState'
+import StartMatchingUseCase from '~/usecases/StartMatchingUseCase'
 
-const matchRequestRepository = new MatchRequestRepository()
+const startMatchingUseCase = new StartMatchingUseCase()
 
 const Home: NextPage = () => {
-  const user: User = {
-    createdAt: new Date(),
-    currentMatch: null,
-    profileImageUrl:
-      'https://pbs.twimg.com/profile_images/1560882765863608320/pAVy4uJ2_400x400.jpg',
-    rating: 1500,
-    userId: 'andmohiko',
-    username: 'いとう',
-    updatedAt: new Date(),
-  }
+  const [user] = useUserState()
+  const [loading, setLoading] = useState(false)
+
   const startMatching = () => {
     console.log('matching start')
-    matchRequestRepository.execute(user)
+    startMatchingUseCase.execute(user!)
+    setLoading(true)
+  }
+
+  const cancel = () => {
+    setLoading(false)
   }
 
   return (
     <DefaultLayout>
-      <h1>テンプレート</h1>
-      <p>だんらく</p>
-      <span>すぱん</span>
-      <span>すぱーん</span>
-      <BaseButton onClick={startMatching}>対戦する</BaseButton>
+      {user?.status === 'initial' && (
+        <FlexBox
+          gap={20}
+          style={{
+            width: 120,
+          }}
+        >
+          <BaseButton onClick={startMatching} loading={loading}>
+            対戦する
+          </BaseButton>
+          <BaseButton onClick={cancel} importance="secondary">
+            キャンセル
+          </BaseButton>
+        </FlexBox>
+      )}
     </DefaultLayout>
   )
 }

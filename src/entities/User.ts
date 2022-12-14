@@ -1,11 +1,13 @@
-import { FieldValue } from 'firebase/firestore'
-
 import { MatchId } from '~/entities/Match'
 import { DocId } from '~/entities/index'
+
+export const UsersCollection = 'users'
 
 export type AuthId = string
 
 export type UserId = DocId
+
+export type UserStatus = 'fighting' | 'matching' | 'initial'
 
 export type User = {
   userId: UserId
@@ -13,7 +15,7 @@ export type User = {
   createdAt: Date
   profileImageUrl: string
   rating: number
-  twitterId?: string
+  status: UserStatus
   updatedAt: Date
   username: string
 }

@@ -10,10 +10,13 @@ import { GlobalFooter } from '~/components/Navigation/GlobalFooter'
 import { GlobalHeader } from '~/components/Navigation/GlobalHeader'
 import { useUserState } from '~/hooks/useUserState'
 import { request } from '~/lib/request'
+import UserRepository from '~/repositories/UserRepository'
 
 type Props = {
   children?: ReactNode
 }
+
+const userRepository = new UserRepository()
 
 export const DefaultLayout = ({ children }: Props): ReactElement => {
   const { push } = useRouter()
@@ -26,7 +29,8 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
           throw new Error('Failed auth')
         }
         const { data } = await res.json()
-        setUser(data)
+        const user = await userRepository.fetchById(data)
+        setUser(user)
       })
       .catch(() => {
         return push('/new')
