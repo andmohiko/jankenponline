@@ -38,13 +38,13 @@ const onCreateMatchRequest = functions.firestore
           await matchUsersUseCase.execute(
             batch,
             {
-              profileImageUrl: matchRequest.profileIcon,
+              profileImageUrl: matchRequest.profileImageUrl,
               rating: matchRequest.rating,
               userId: matchRequest.userId,
               username: matchRequest.username,
             },
             {
-              profileImageUrl: opponentRequest.profileIcon,
+              profileImageUrl: opponentRequest.profileImageUrl,
               rating: opponentRequest.rating,
               userId: opponentRequest.userId,
               username: opponentRequest.username,

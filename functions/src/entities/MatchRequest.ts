@@ -13,7 +13,7 @@ export type MatchRequest = {
   matchRequestId: MatchRequestId
   createdAt: Date
   matchingDeadline: Date
-  profileIcon: User['profileImageUrl']
+  profileImageUrl: User['profileImageUrl']
   rating: number
   status: MatchRequestStatus
   updatedAt: Date

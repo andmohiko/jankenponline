@@ -13,6 +13,7 @@ export default class StartMatchingUseCase {
     this.matchRequestRepository.create({
       createdAt: serverTimestamp,
       matchingDeadline: new Date(),
+      profileImageUrl: user.profileImageUrl,
       rating: user.rating,
       status: 'searching',
       updatedAt: serverTimestamp,
