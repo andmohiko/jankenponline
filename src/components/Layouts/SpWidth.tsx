@@ -1,4 +1,4 @@
-import { FlexBox } from '~/components/FlexBox'
+import { FlexBox } from '~/components/Base/FlexBox'
 
 type Props = {
   children: React.ReactNode

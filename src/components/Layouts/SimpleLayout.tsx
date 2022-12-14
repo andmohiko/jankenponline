@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react'
 
-import { FlexBox } from '~/components/FlexBox'
-import { PageHead } from '~/components/Head'
+import { FlexBox } from '~/components/Base/FlexBox'
+import { PageHead } from '~/components/Base/Head'
 import { SpWidth } from '~/components/Layouts/SpWidth'
 
 type Props = {
@@ -17,14 +17,12 @@ export const SimpleLayout = ({ children }: Props): ReactElement => (
           minHeight: '100vh',
         }}
       >
-        <div
+        <FlexBox
+          justify="center"
+          align="center"
           style={{
             backgroundColor: '#dcd3f0',
             height: 40,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
           }}
         >
           <h1
@@ -35,7 +33,7 @@ export const SimpleLayout = ({ children }: Props): ReactElement => (
           >
             じゃんけんポンライン
           </h1>
-        </div>
+        </FlexBox>
         <FlexBox px={16} py={16}>
           {children}
         </FlexBox>
