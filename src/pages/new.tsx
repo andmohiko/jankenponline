@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import type { NextPage } from 'next'
 
-import { FlexBox } from '~/components/FlexBox'
+import { FlexBox } from '~/components/Base/FlexBox'
 import { SimpleLayout } from '~/components/Layouts/SimpleLayout'
 
 const NewPage: NextPage = () => {

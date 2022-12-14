@@ -2,9 +2,10 @@ import { ReactElement, ReactNode, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-import { FlexBox } from '~/components/FlexBox'
-import { PageHead } from '~/components/Head'
+import { FlexBox } from '~/components/Base/FlexBox'
+import { PageHead } from '~/components/Base/Head'
 import { SpWidth } from '~/components/Layouts/SpWidth'
+import { useUserState } from '~/hooks/useUserState'
 
 type Props = {
   children?: ReactNode
@@ -12,13 +13,24 @@ type Props = {
 
 export const DefaultLayout = ({ children }: Props): ReactElement => {
   const { push } = useRouter()
-  const user = '1'
+  const [user, setUser] = useUserState()
+
+  setUser({
+    createdAt: new Date(),
+    currentMatch: null,
+    profileImageUrl:
+      'https://pbs.twimg.com/profile_images/1560882765863608320/pAVy4uJ2_400x400.jpg',
+    rating: 1500,
+    userId: 'andmohiko',
+    username: 'いとう',
+    updatedAt: new Date(),
+  })
 
   useEffect(() => {
     if (!user) {
       push('/new')
     }
-  }, [push])
+  }, [user, push])
 
   return (
     <>
@@ -29,14 +41,12 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
             minHeight: '100vh',
           }}
         >
-          <div
+          <FlexBox
+            justify="center"
+            align="center"
             style={{
               backgroundColor: '#dcd3f0',
               height: 40,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
             }}
           >
             <h1
@@ -47,7 +57,7 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
             >
               じゃんけんポンライン
             </h1>
-          </div>
+          </FlexBox>
           <FlexBox px={16} py={16}>
             {children}
           </FlexBox>
