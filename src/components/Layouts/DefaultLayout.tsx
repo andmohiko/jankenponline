@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { ReactElement, ReactNode, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
@@ -6,6 +7,7 @@ import { FlexBox } from '~/components/Base/FlexBox'
 import { PageHead } from '~/components/Base/Head'
 import { SpWidth } from '~/components/Layouts/SpWidth'
 import { useUserState } from '~/hooks/useUserState'
+import { request } from '~/lib/request'
 
 type Props = {
   children?: ReactNode
@@ -15,22 +17,19 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
   const { push } = useRouter()
   const [user, setUser] = useUserState()
 
-  setUser({
-    createdAt: new Date(),
-    currentMatch: null,
-    profileImageUrl:
-      'https://pbs.twimg.com/profile_images/1560882765863608320/pAVy4uJ2_400x400.jpg',
-    rating: 1500,
-    userId: 'andmohiko',
-    username: 'いとう',
-    updatedAt: new Date(),
-  })
-
   useEffect(() => {
-    if (!user) {
-      push('/new')
-    }
-  }, [user, push])
+    request('/auth')
+      .then(async (res) => {
+        if (!res.ok) {
+          throw new Error('Failed auth')
+        }
+        const { data } = await res.json()
+        setUser(data)
+      })
+      .catch(() => {
+        return push('/new')
+      })
+  }, [push, setUser])
 
   return (
     <>
@@ -42,6 +41,7 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
           }}
         >
           <FlexBox
+            direction="row"
             justify="center"
             align="center"
             style={{
@@ -57,6 +57,12 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
             >
               じゃんけんポンライン
             </h1>
+            <img
+              src={user?.profileImageUrl}
+              height={24}
+              width={24}
+              alt={user?.username}
+            />
           </FlexBox>
           <FlexBox px={16} py={16}>
             {children}
