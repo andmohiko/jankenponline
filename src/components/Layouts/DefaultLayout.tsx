@@ -1,11 +1,13 @@
-/* eslint-disable @next/next/no-img-element */
 import { ReactElement, ReactNode, useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
 import { FlexBox } from '~/components/Base/FlexBox'
 import { PageHead } from '~/components/Base/Head'
+import { LoadingScreen } from '~/components/Base/Loading'
 import { SpWidth } from '~/components/Layouts/SpWidth'
+import { GlobalFooter } from '~/components/Navigation/GlobalFooter'
+import { GlobalHeader } from '~/components/Navigation/GlobalHeader'
 import { useUserState } from '~/hooks/useUserState'
 import { request } from '~/lib/request'
 
@@ -31,6 +33,10 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
       })
   }, [push, setUser])
 
+  if (user === undefined) {
+    return <LoadingScreen />
+  }
+
   return (
     <>
       <PageHead />
@@ -40,33 +46,17 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
             minHeight: '100vh',
           }}
         >
+          <GlobalHeader user={user!} />
           <FlexBox
-            direction="row"
-            justify="center"
-            align="center"
+            px={16}
+            py={16}
             style={{
-              backgroundColor: '#dcd3f0',
-              height: 40,
+              minHeight: 'calc(100vh - 80px)',
             }}
           >
-            <h1
-              style={{
-                color: '#111111',
-                fontSize: 20,
-              }}
-            >
-              じゃんけんポンライン
-            </h1>
-            <img
-              src={user?.profileImageUrl}
-              height={24}
-              width={24}
-              alt={user?.username}
-            />
-          </FlexBox>
-          <FlexBox px={16} py={16}>
             {children}
           </FlexBox>
+          <GlobalFooter user={user!} />
         </div>
       </SpWidth>
     </>
