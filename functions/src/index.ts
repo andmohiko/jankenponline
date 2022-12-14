@@ -1,3 +1,3 @@
-exports.onCreateScene = require('./triggers/onCreateMatchRequest')
+exports.onCreateMatchRequest = require('./triggers/onCreateMatchRequest')
 
 export {}

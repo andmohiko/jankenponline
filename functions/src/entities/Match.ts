@@ -1,5 +1,9 @@
+import * as admin from 'firebase-admin'
+
 import { User, UserId } from '../entities/User'
 import { DocId } from '../entities/index'
+
+export const MatchesCollection = 'matches'
 
 export type MatchId = DocId
 
@@ -27,4 +31,13 @@ export type Match = {
   updatedAt: Date
   users: Array<MatchUser>
   winnerUserId: UserId
+}
+
+export type CreateMatchDto = {
+  createdAt: admin.firestore.FieldValue
+  rule: Match['rule']
+  season: Match['season']
+  status: Match['status']
+  updatedAt: admin.firestore.FieldValue
+  users: Match['users']
 }

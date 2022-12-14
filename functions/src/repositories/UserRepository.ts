@@ -24,7 +24,7 @@ export default class UserRepository {
     batch: admin.firestore.WriteBatch,
     userId: UserId,
     dto: UpdateUserDto,
-  ): Promise<void> {
+  ): void {
     const ref = db.collection(UsersCollection).doc(userId)
     batch.update(ref, dto)
   }

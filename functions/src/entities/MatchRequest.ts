@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { UserId } from '../entities/User'
+import { User, UserId } from '../entities/User'
 import { DocId } from '../entities/index'
 
 export const MatchRequestsCollection = 'matchRequests'
@@ -13,6 +13,7 @@ export type MatchRequest = {
   matchRequestId: MatchRequestId
   createdAt: Date
   matchingDeadline: Date
+  profileIcon: User['profileImageUrl']
   rating: number
   status: MatchRequestStatus
   updatedAt: Date

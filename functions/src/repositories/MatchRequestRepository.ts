@@ -49,7 +49,7 @@ export default class MatchRequestRepository {
     batch: admin.firestore.WriteBatch,
     matchRequestId: MatchRequestId,
     dto: UpdateMatchRequestDto,
-  ): Promise<void> {
+  ): void {
     const ref = db.collection(MatchRequestsCollection).doc(matchRequestId)
     batch.update(ref, dto)
   }
