@@ -1,4 +1,5 @@
 import '~/styles/reset.css'
+import { ChakraProvider } from '@chakra-ui/react'
 import { RecoilRoot } from 'recoil'
 
 import type { AppProps } from 'next/app'
@@ -6,7 +7,9 @@ import type { AppProps } from 'next/app'
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <RecoilRoot>
-      <Component {...pageProps} />
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
     </RecoilRoot>
   )
 }
