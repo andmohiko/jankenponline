@@ -1,23 +1,43 @@
+import { Button } from '@chakra-ui/react'
+
+type ButtonImportance = 'primary' | 'secondary' | 'tertiary'
+
 type Props = {
   children: React.ReactNode
   onClick: () => void
+  importance?: ButtonImportance
+  loading?: boolean
 }
-export const BaseButton = ({ children, onClick }: Props) => {
+export const BaseButton = ({
+  children,
+  onClick,
+  importance = 'primary',
+  loading = false,
+}: Props) => {
+  const variants = (importance: ButtonImportance) => {
+    if (importance === 'secondary') {
+      return 'outline'
+    }
+    if (importance === 'tertiary') {
+      return 'ghost'
+    }
+    return 'solid'
+  }
   return (
-    <button
+    <Button
+      colorScheme="blue"
+      variant={variants(importance)}
       onClick={onClick}
+      isLoading={loading}
       style={{
         padding: '8px 16px',
-        backgroundColor: '#428BE6',
-        border: 'none',
         borderRadius: 6,
-        color: '#FFFFFF',
         fontSize: 16,
         lineHeight: 1.6,
-        cursor: 'pointer',
+        width: '100%',
       }}
     >
       {children}
-    </button>
+    </Button>
   )
 }

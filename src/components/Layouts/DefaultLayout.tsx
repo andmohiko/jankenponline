@@ -29,8 +29,7 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
           throw new Error('Failed auth')
         }
         const { data } = await res.json()
-        const user = await userRepository.fetchById(data)
-        setUser(user)
+        await userRepository.subscribeMe(data, setUser)
       })
       .catch(() => {
         return push('/new')

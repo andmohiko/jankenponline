@@ -26,21 +26,20 @@ const Home: NextPage = () => {
 
   return (
     <DefaultLayout>
-      {user?.status === 'initial' && (
-        <FlexBox
-          gap={20}
-          style={{
-            width: 120,
-          }}
-        >
-          <BaseButton onClick={startMatching} loading={loading}>
-            対戦する
-          </BaseButton>
-          <BaseButton onClick={cancel} importance="secondary">
-            キャンセル
-          </BaseButton>
-        </FlexBox>
-      )}
+      <FlexBox
+        gap={20}
+        style={{
+          width: 120,
+        }}
+      >
+        <BaseButton onClick={startMatching} loading={loading}>
+          対戦する
+        </BaseButton>
+        <BaseButton onClick={cancel} importance="secondary">
+          キャンセル
+        </BaseButton>
+      </FlexBox>
+      {user?.currentMatch && <a>マッチしたよ</a>}
     </DefaultLayout>
   )
 }
