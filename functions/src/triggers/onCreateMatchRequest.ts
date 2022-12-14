@@ -33,7 +33,9 @@ const onCreateMatchRequest = functions.firestore
         const matchRequests = await matchRequestRepository.fetchSearching()
         if (matchRequests.length > 0) {
           // TODO: 探すロジックの精度を上げる
-          const opponentRequest = matchRequests[0]
+          const opponentRequest = matchRequests.filter(
+            (mr) => mr.userId !== matchRequest.userId,
+          )[0]
 
           await matchUsersUseCase.execute(
             batch,
