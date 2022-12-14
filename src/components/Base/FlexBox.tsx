@@ -16,6 +16,7 @@ type Props = {
   mr?: number
   mb?: number
   ml?: number
+  style?: Record<string, string | number>
 }
 
 export const FlexBox = ({
@@ -36,6 +37,8 @@ export const FlexBox = ({
   mr = 0,
   mb = 0,
   ml = 0,
+  style = {},
+  ...props
 }: Props) => (
   <div
     style={{
@@ -46,7 +49,9 @@ export const FlexBox = ({
       gap,
       padding: `${pt || py}px ${pr || px}px ${pb || py}px ${pl || px}px`,
       margin: `${mt || my}mx ${mr || mx}mx ${mb || my}mx ${ml || mx}px`,
+      ...style,
     }}
+    {...props}
   >
     {children}
   </div>
