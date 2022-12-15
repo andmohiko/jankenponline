@@ -9,6 +9,8 @@ export type MatchRequestId = DocId
 
 export type MatchRequestStatus = 'searching' | 'matched' | 'canceled'
 
+export const matchingDeadlineSeconds = 60
+
 export type MatchRequest = {
   matchRequestId: MatchRequestId
   createdAt: Date
