@@ -15,7 +15,7 @@ const Match: NextPage = () => {
   const [loading, setLoading] = useState(false)
 
   return (
-    <DefaultLayout>
+    <DefaultLayout isShowBack>
       <FlexBox
         gap={20}
         style={{

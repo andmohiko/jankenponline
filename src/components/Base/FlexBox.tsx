@@ -3,6 +3,8 @@ type Props = {
   direction?: 'row' | 'column'
   justify?: string
   align?: string
+  width?: number | string
+  height?: number | string
   gap?: number
   px?: number
   py?: number
@@ -24,6 +26,8 @@ export const FlexBox = ({
   direction = 'column',
   justify = 'center',
   align = 'center',
+  width = '100%',
+  height = '100%',
   gap = 0,
   px = 0,
   py = 0,
@@ -46,6 +50,8 @@ export const FlexBox = ({
       flexDirection: direction,
       justifyContent: justify,
       alignItems: align,
+      width,
+      height,
       gap,
       padding: `${pt || py}px ${pr || px}px ${pb || py}px ${pl || px}px`,
       margin: `${mt || my}mx ${mr || mx}mx ${mb || my}mx ${ml || mx}px`,

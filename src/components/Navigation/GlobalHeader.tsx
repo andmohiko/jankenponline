@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router'
 import { IoChevronBackOutline } from 'react-icons/io5'
 
-import { Box } from '../Base/Box'
-
 import { FlexBox } from '~/components/Base/FlexBox'
 
 type Props = {
@@ -26,13 +24,18 @@ export const GlobalHeader = ({
           height: 50,
         }}
       >
-        <Box width={40}>
+        <FlexBox
+          width={40}
+          style={{
+            marginLeft: 4,
+          }}
+        >
           {isShowBack && (
             <button onClick={back}>
               <IoChevronBackOutline color="#ffffff" size={32} />
             </button>
           )}
-        </Box>
+        </FlexBox>
         <h1
           style={{
             color: '#ffffff',
@@ -42,7 +45,7 @@ export const GlobalHeader = ({
         >
           {title}
         </h1>
-        <Box width={40}></Box>
+        <FlexBox width={40}></FlexBox>
       </FlexBox>
     </header>
   )
