@@ -9,7 +9,7 @@ export const SpWidth = ({ children }: Props) => {
     <FlexBox>
       <div
         style={{
-          width: 500,
+          width: '100%',
           maxWidth: 500,
         }}
       >
