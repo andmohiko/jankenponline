@@ -1,38 +1,49 @@
-/* eslint-disable @next/next/no-img-element */
+import { useRouter } from 'next/router'
+import { IoChevronBackOutline } from 'react-icons/io5'
+
+import { Box } from '../Base/Box'
+
 import { FlexBox } from '~/components/Base/FlexBox'
-import { User } from '~/entities/User'
 
 type Props = {
-  user: User
+  title?: string
+  isShowBack: boolean
 }
 
-export const GlobalHeader = ({ user }: Props) => {
+export const GlobalHeader = ({
+  title = 'じゃんけんポンライン',
+  isShowBack,
+}: Props) => {
+  const { back } = useRouter()
   return (
-    <footer>
+    <header>
       <FlexBox
         direction="row"
-        justify="center"
+        justify="space-between"
         align="center"
         style={{
-          backgroundColor: '#dcd3f0',
-          height: 40,
+          backgroundColor: '#3182ce',
+          height: 50,
         }}
       >
+        <Box width={40}>
+          {isShowBack && (
+            <button onClick={back}>
+              <IoChevronBackOutline color="#ffffff" size={32} />
+            </button>
+          )}
+        </Box>
         <h1
           style={{
-            color: '#111111',
+            color: '#ffffff',
+            fontWeight: 'bold',
             fontSize: 20,
           }}
         >
-          じゃんけんポンライン
+          {title}
         </h1>
-        <img
-          src={user.profileImageUrl}
-          height={24}
-          width={24}
-          alt={user.username}
-        />
+        <Box width={40}></Box>
       </FlexBox>
-    </footer>
+    </header>
   )
 }

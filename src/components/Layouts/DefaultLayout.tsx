@@ -13,12 +13,16 @@ import { request } from '~/lib/request'
 import UserRepository from '~/repositories/UserRepository'
 
 type Props = {
-  children?: ReactNode
+  children: ReactNode
+  isShowBack?: boolean
 }
 
 const userRepository = new UserRepository()
 
-export const DefaultLayout = ({ children }: Props): ReactElement => {
+export const DefaultLayout = ({
+  children,
+  isShowBack = false,
+}: Props): ReactElement => {
   const { push } = useRouter()
   const [user, setUser] = useUserState()
 
@@ -49,12 +53,12 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
             minHeight: '100vh',
           }}
         >
-          <GlobalHeader user={user!} />
+          <GlobalHeader isShowBack={isShowBack} />
           <FlexBox
             px={16}
             py={16}
             style={{
-              minHeight: 'calc(100vh - 100px)',
+              minHeight: 'calc(100vh - 110px)',
             }}
           >
             {children}
