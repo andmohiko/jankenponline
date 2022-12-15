@@ -23,27 +23,25 @@ const scheduledMatchingDeadLine = functions.pubsub
     const nowDate = new Date()
     const start = addSeconds(nowDate, -60 * 60)
     const cancelMatchingTime = addSeconds(nowDate, -matchingDeadlineSeconds)
-    const snapShot = await db
-      .collection(MatchRequestsCollection)
-      .where('createdAt', '>', start)
-      .where('createdAt', '<', cancelMatchingTime)
-      .where('status', '==', 'searching')
-      .get()
-    console.log(start, cancelMatchingTime, snapShot.docs.length)
-    await Promise.all(
-      snapShot.docs.map(async (doc) => {
-        const matchRequest = await matchRequestRepository.fetchById(doc.id)
-        if (!matchRequest) {
-          return
-        }
+    const unmatchedRequests =
+      await matchRequestRepository.fetchByMatchingDeadline(
+        start,
+        cancelMatchingTime,
+      )
+    console.log(start, cancelMatchingTime, unmatchedRequests.length)
 
-        const batch = db.batch()
-        await cancelMatchingUseCase.execute(batch, matchRequest)
-        await batch.commit()
-      }),
-    ).catch((error) => {
+    try {
+      const batch = db.batch()
+
+      // TODO: ここでもマッチングさせる
+      for (let i = 0; i < unmatchedRequests.length; i++) {
+        await cancelMatchingUseCase.execute(batch, unmatchedRequests[i])
+      }
+
+      await batch.commit()
+    } catch (error) {
       console.error(error)
-    })
+    }
   })
 
 export default scheduledMatchingDeadLine

@@ -27,6 +27,26 @@ export default class MatchRequestRepository {
       .sort((a, b) => (a.matchingDeadline < b.matchingDeadline ? -1 : 1))
   }
 
+  async fetchByMatchingDeadline(
+    start: Date,
+    cancelMatchingTime: Date,
+  ): Promise<Array<MatchRequest>> {
+    const snapshot = await db
+      .collection(MatchRequestsCollection)
+      .where('createdAt', '>', start)
+      .where('createdAt', '<', cancelMatchingTime)
+      .where('status', '==', 'searching')
+      .get()
+    return snapshot.docs
+      .map((doc) => {
+        return {
+          matchRequestId: doc.id,
+          ...convertDate(doc.data(), dateColumns),
+        } as MatchRequest
+      })
+      .sort((a, b) => (a.rating < b.rating ? -1 : 1))
+  }
+
   async fetchById(
     matchRequestId: MatchRequestId,
   ): Promise<MatchRequest | undefined> {
