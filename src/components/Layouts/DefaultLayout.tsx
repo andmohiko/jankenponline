@@ -54,7 +54,7 @@ export const DefaultLayout = ({ children }: Props): ReactElement => {
             px={16}
             py={16}
             style={{
-              minHeight: 'calc(100vh - 80px)',
+              minHeight: 'calc(100vh - 100px)',
             }}
           >
             {children}
