@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { NextPage } from 'next'
 
@@ -7,6 +7,7 @@ import { LoadingScreen } from '~/components/Base/Loading'
 import { BaseButton } from '~/components/Buttons/BaseButton'
 import { MatchPlayerCard } from '~/components/Cards/MatchPlayerCard'
 import { DefaultLayout } from '~/components/Layouts/DefaultLayout'
+import { MatchStatusLabel } from '~/entities/Match'
 import { useCurrentMatchState } from '~/hooks/useCurrentMatchState'
 import { useUserState } from '~/hooks/useUserState'
 import ReadyForMatchUseCase from '~/usecases/ReadyForMatchUseCase'
@@ -29,6 +30,14 @@ const Match: NextPage = () => {
     console.log('finish useeffect')
   }, [user])
 
+  const me = useMemo(() => {
+    return currentMatch!.users.find((u) => u.userId === user?.userId)
+  }, [user, currentMatch])
+
+  const opponent = useMemo(() => {
+    return currentMatch!.users.find((u) => u.userId !== user?.userId)
+  }, [user, currentMatch])
+
   if (loading) {
     return <LoadingScreen />
   }
@@ -49,18 +58,16 @@ const Match: NextPage = () => {
           flexGrow: 1,
         }}
       >
-        {currentMatch?.users && (
-          <MatchPlayerCard
-            user={currentMatch.users.find((u) => u.userId !== user?.userId)!}
-          />
-        )}
-        まっちしたよ〜
-        {currentMatch?.matchId}
-        <BaseButton onClick={readyForMatch}>準備完了</BaseButton>
-        {currentMatch?.users && (
-          <MatchPlayerCard
-            user={currentMatch.users.find((u) => u.userId === user?.userId)!}
-          />
+        {currentMatch && (
+          <>
+            <MatchPlayerCard user={opponent!} />
+            {currentMatch?.matchId}
+            {MatchStatusLabel[currentMatch.status]}
+            {me?.actionStatus === 'preparing' && (
+              <BaseButton onClick={readyForMatch}>準備完了</BaseButton>
+            )}
+            <MatchPlayerCard user={me!} />
+          </>
         )}
       </FlexBox>
     </DefaultLayout>

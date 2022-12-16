@@ -52,6 +52,7 @@ export type CreateMatchDto = {
 }
 
 export type UpdateMatchDto = {
+  status?: Match['status']
   updatedAt: admin.firestore.FieldValue
   users?: Match['users']
 }

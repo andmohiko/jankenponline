@@ -29,7 +29,10 @@ export default class SetUserReadyUseCase {
         actionStatus: 'ready',
       }
     })
+    const isBothReady =
+      users.filter((user) => user.actionStatus === 'ready').length === 2
     await this.matchRepository.update(match.matchId, {
+      status: isBothReady ? 'fighting' : 'preparing',
       updatedAt: serverTimestamp,
       users,
     })

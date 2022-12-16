@@ -13,6 +13,13 @@ export type Result = 'win' | 'lose'
 
 export type MatchStatus = 'initial' | 'preparing' | 'fighting' | 'finish'
 
+export const MatchStatusLabel: StringKeyObject = {
+  initial: 'マッチ済み',
+  preparing: '準備中',
+  fighting: '試合中',
+  finish: '試合終了',
+}
+
 export type ActionStatus =
   | 'preparing'
   | 'ready'
