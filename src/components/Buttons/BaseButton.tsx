@@ -6,12 +6,14 @@ type Props = {
   children: React.ReactNode
   onClick: () => void
   importance?: ButtonImportance
+  disabled?: boolean
   loading?: boolean
 }
 export const BaseButton = ({
   children,
   onClick,
   importance = 'primary',
+  disabled = false,
   loading = false,
 }: Props) => {
   const variants = (importance: ButtonImportance) => {
@@ -29,6 +31,7 @@ export const BaseButton = ({
       variant={variants(importance)}
       onClick={onClick}
       isLoading={loading}
+      isDisabled={disabled}
       style={{
         padding: '8px 16px',
         borderRadius: 6,

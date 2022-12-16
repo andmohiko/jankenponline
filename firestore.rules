@@ -50,6 +50,15 @@ service cloud.firestore {
                       && 'userAction' in requestData() && requestData().userAction is string
                       && 'userId' in requestData() && requestData().userId is string;
       }
+
+      match /throws/{throwId} {
+        allow create: if requestData().size() == 5
+                      && 'createdAt' in requestData() && requestData().createdAt is timestamp
+                      && 'hand' in requestData() && requestData().hand is string
+                      && 'round' in requestData() && requestData().round is number
+                      && 'turn' in requestData() && requestData().turn is number
+                      && 'userId' in requestData() && requestData().userId is string;
+      }
     }
   }
 }

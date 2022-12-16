@@ -8,9 +8,11 @@ import { MatchPlayerCard } from '~/components/Cards/MatchPlayerCard'
 import { JankenHand } from '~/entities'
 import { Match, MatchStatusLabel } from '~/entities/Match'
 import { User } from '~/entities/User'
+import CreateThrowUseCase from '~/usecases/CreateThrowUseCase'
 import ReadyForMatchUseCase from '~/usecases/ReadyForMatchUseCase'
 
 const readyForMatchUseCase = new ReadyForMatchUseCase()
+const createThrowUseCase = new CreateThrowUseCase()
 
 type Props = {
   user: User
@@ -35,6 +37,21 @@ export const BattleField = ({ match, user }: Props) => {
     currentHand === hand ? setCurrentHand(null) : setCurrentHand(hand)
   }
 
+  const createThrow = () => {
+    if (!currentHand) {
+      return
+    }
+
+    createThrowUseCase.execute(
+      match,
+      user.userId,
+      currentHand,
+      match.round,
+      match.turn,
+    )
+    setCurrentHand(null)
+  }
+
   return (
     <FlexBox
       justify="space-between"
@@ -47,7 +64,12 @@ export const BattleField = ({ match, user }: Props) => {
       <MatchPlayerCard user={opponent} />
       {match?.matchId}
       {MatchStatusLabel[match.status]}
-      <JankenButtons current={currentHand} select={selectHand} />
+      <FlexBox gap={20}>
+        <JankenButtons current={currentHand} select={selectHand} />
+        <BaseButton onClick={createThrow} disabled={!currentHand}>
+          決定
+        </BaseButton>
+      </FlexBox>
       {me.actionStatus === 'preparing' && (
         <BaseButton onClick={readyForMatch}>準備完了</BaseButton>
       )}
