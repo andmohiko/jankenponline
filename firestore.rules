@@ -40,5 +40,9 @@ service cloud.firestore {
                     && 'userId' in requestData() && requestData().userId is string
                     && 'username' in requestData() && requestData().username is string;
     }
+
+    match /matches/{matchId} {
+      allow read;
+    }
   }
 }

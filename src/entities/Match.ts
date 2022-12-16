@@ -3,6 +3,8 @@ import { FieldValue } from 'firebase/firestore'
 import { User, UserId } from '~/entities/User'
 import { DocId } from '~/entities/index'
 
+export const MatchesCollection = 'matches'
+
 export type MatchId = DocId
 
 export type Rule = 'gachi' | 'casual'
