@@ -1,5 +1,5 @@
 import { Match, MatchUser } from '../entities/Match'
-import { MatchAction } from '../entities/MatchAction'
+import { Throw } from '../entities/Throw'
 import { serverTimestamp } from '../firebase'
 import MatchRepository from '../repositories/MatchRepository'
 
@@ -10,20 +10,17 @@ export default class SetUserReadyUseCase {
     this.matchRepository = new MatchRepository()
   }
 
-  async execute(match: Match, matchAction: MatchAction) {
+  async execute(match: Match, throwedHand: Throw) {
     const users: MatchUser[] = match.users.map((user) => {
-      if (user.userId !== matchAction.userId) {
+      if (user.userId !== throwedHand.userId) {
         return user
       }
       return {
         ...user,
-        actionStatus: 'ready',
+        actionStatus: 'throwed',
       }
     })
-    const isBothReady =
-      users.filter((user) => user.actionStatus === 'ready').length === 2
     await this.matchRepository.update(match.matchId, {
-      status: isBothReady ? 'fighting' : 'preparing',
       updatedAt: serverTimestamp,
       users,
     })
