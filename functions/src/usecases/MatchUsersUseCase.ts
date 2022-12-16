@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 
+import { MatchUser } from '../entities/Match'
 import { MatchRequest } from '../entities/MatchRequest'
 import { serverTimestamp } from '../firebase'
 import JoinMatchRepository from '../repositories/JoinMatchRepository'
@@ -27,17 +28,21 @@ export default class MatchUsersUseCase {
     rule: 'gachi' | 'casual',
     season: number,
   ) {
-    const me = {
+    const me: MatchUser = {
+      actionStatus: 'preparing',
       profileImageUrl: myRequest.profileImageUrl,
       rating: myRequest.rating,
       userId: myRequest.userId,
       username: myRequest.username,
+      wins: 0,
     }
-    const opponent = {
+    const opponent: MatchUser = {
+      actionStatus: 'preparing',
       profileImageUrl: opponentRequest.profileImageUrl,
       rating: opponentRequest.rating,
       userId: opponentRequest.userId,
       username: opponentRequest.username,
+      wins: 0,
     }
 
     const matchId = this.matchRepository.createByBatch(batch, {

@@ -1,6 +1,6 @@
 import { atom } from 'recoil'
 
-import { MatchRequest } from '~/entities/MatchRequest'
+import { Match } from '~/entities/Match'
 import { User } from '~/entities/User'
 
 export const UserState = atom<User | undefined>({
@@ -8,7 +8,7 @@ export const UserState = atom<User | undefined>({
   default: undefined,
 })
 
-export const MatchRequestState = atom<MatchRequest | undefined>({
-  key: 'matchRequest',
+export const CurrentMatchState = atom<Match | undefined>({
+  key: 'currentMatch',
   default: undefined,
 })
