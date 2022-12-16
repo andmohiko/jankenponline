@@ -62,6 +62,13 @@ export const BattleField = ({ match, user }: Props) => {
       }}
     >
       <MatchPlayerCard user={opponent} />
+      <FlexBox>
+        <p>試合ステータス: {MatchStatusLabel[match.status]}</p>
+        <p>ラウンド: {match.round}</p>
+        <p>
+          勝敗数: 自分 {me.wins} : 相手 {opponent.wins}
+        </p>
+      </FlexBox>
       {match?.matchId}
       {MatchStatusLabel[match.status]}
       <FlexBox gap={20}>
