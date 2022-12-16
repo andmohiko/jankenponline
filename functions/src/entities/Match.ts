@@ -13,11 +13,20 @@ export type Result = 'win' | 'lose'
 
 export type MatchStatus = 'initial' | 'preparing' | 'fighting' | 'finish'
 
+export type ActionStatus =
+  | 'preparing'
+  | 'ready'
+  | 'thinking'
+  | 'throwed'
+  | 'receivedResult'
+
 export type MatchUser = {
   userId: UserId
+  actionStatus: ActionStatus
   profileImageUrl: User['profileImageUrl']
   rating: User['rating']
   username: User['username']
+  wins: number
 }
 
 export type Match = {
@@ -40,4 +49,9 @@ export type CreateMatchDto = {
   status: Match['status']
   updatedAt: admin.firestore.FieldValue
   users: Match['users']
+}
+
+export type UpdateMatchDto = {
+  updatedAt: admin.firestore.FieldValue
+  users?: Match['users']
 }
