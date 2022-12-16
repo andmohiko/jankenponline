@@ -1,20 +1,40 @@
+import { getAnalytics } from 'firebase/analytics'
 import { initializeApp } from 'firebase/app'
+import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import {
   serverTimestamp as getServerTimeStamp,
   getFirestore,
+  connectFirestoreEmulator
 } from 'firebase/firestore'
+import { getFunctions } from 'firebase/functions'
+import { getRemoteConfig } from 'firebase/remote-config'
+import { getStorage } from 'firebase/storage'
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+// import config from './firebaseConfig.json'
+
+const firebaseApp = initializeApp({})
+
+const db = getFirestore(firebaseApp)
+const auth = getAuth(firebaseApp)
+const storage = getStorage()
+const analitics = getAnalytics()
+const serverTimestamp = getServerTimeStamp()
+const googleProvider = new GoogleAuthProvider()
+const functions = getFunctions()
+const remoteConfig = getRemoteConfig()
+remoteConfig.settings.minimumFetchIntervalMillis = 1000
+
+if (process.env.USE_EMULATOR === 'true') {
+  connectFirestoreEmulator(db, 'localhost', 8080)
 }
 
-const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
-const serverTimestamp = getServerTimeStamp()
-
-export { db, serverTimestamp }
+export {
+  db,
+  auth,
+  storage,
+  analitics,
+  serverTimestamp,
+  googleProvider,
+  functions,
+  remoteConfig
+}

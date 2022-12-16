@@ -1,5 +1,7 @@
 import { doc, onSnapshot } from 'firebase/firestore'
 
+import type { SetterOrUpdater } from 'recoil'
+
 import { Match, MatchesCollection, MatchId } from '~/entities/Match'
 import { db } from '~/lib/firebase'
 import { convertDate } from '~/utils/convertDate'
@@ -9,7 +11,7 @@ const dateColumns = ['createdAt', 'updatedAt']
 export default class MatchRepository {
   async subscribeMatch(
     matchId: MatchId,
-    setMatch: any,
+    setMatch: SetterOrUpdater<Match | undefined>,
   ): Promise<void> {
     await new Promise<Match>(() => {
       const match = onSnapshot(
