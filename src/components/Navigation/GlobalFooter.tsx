@@ -83,25 +83,27 @@ type NavLinkItemProps = {
 const NavLinkItem = ({ icon, href, label, color }: NavLinkItemProps) => {
   return (
     <Link href={href}>
-      <FlexBox
-        justify="center"
-        align="center"
-        gap={4}
-        style={{
-          width: 64,
-        }}
-      >
-        {icon}
-        <span
+      <>
+        <FlexBox
+          justify="center"
+          align="center"
+          gap={4}
           style={{
-            color,
-            fontSize: 9,
-            lineHeight: 1.5,
+            width: 64,
           }}
         >
-          {label}
-        </span>
-      </FlexBox>
+          {icon}
+          <span
+            style={{
+              color,
+              fontSize: 9,
+              lineHeight: 1.5,
+            }}
+          >
+            {label}
+          </span>
+        </FlexBox>
+      </>
     </Link>
   )
 }

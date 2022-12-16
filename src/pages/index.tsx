@@ -41,9 +41,9 @@ const Home: NextPage = () => {
         </BaseButton>
       </FlexBox>
       {user?.currentMatch && (
-        <a href={`/matches/${user.currentMatch}`}>
-          <LinkButton>対戦に進む</LinkButton>
-        </a>
+        <LinkButton href={`/matches/${user.currentMatch}`}>
+          対戦に進む
+        </LinkButton>
       )}
     </DefaultLayout>
   )

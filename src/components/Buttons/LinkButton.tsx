@@ -2,11 +2,13 @@ import { Button } from '@chakra-ui/react'
 
 type Props = {
   children: React.ReactNode
+  href: string
 }
-export const LinkButton = ({ children }: Props) => {
+export const LinkButton = ({ children, href }: Props) => {
   return (
     <Button
       as={'a'}
+      href={href}
       colorScheme="blue"
       style={{
         padding: '8px 16px',
