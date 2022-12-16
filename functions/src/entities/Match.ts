@@ -33,10 +33,12 @@ export type Match = {
   matchId: MatchId
   createdAt: Date
   loserUserId: UserId
+  round: number
   roundWinnerIds: Array<UserId>
   rule: Rule
   season: number
   status: MatchStatus
+  turn: number
   updatedAt: Date
   users: Array<MatchUser>
   winnerUserId: UserId
