@@ -19,7 +19,6 @@ const Match: NextPage = () => {
   const [currentMatch, refetchMatch] = useCurrentMatchState()
   const [loading, setLoading] = useState(false)
 
-  // TODO: ページを開いたら現在のマッチを取得し、相手の情報を表示する
   useEffect(() => {
     console.log('useeffect')
     setLoading(true)
@@ -42,11 +41,9 @@ const Match: NextPage = () => {
     return <LoadingScreen />
   }
 
-  // TODO: 準備完了ボタンを置いて、actionを作成する
   const readyForMatch = async () => {
     await readyForMatchUseCase.execute(currentMatch!, user!.userId)
   }
-  // TODO: actionが作成されたらfunctionsでmatch.user.statusをreadyにする
 
   return (
     <DefaultLayout isShowBack>
