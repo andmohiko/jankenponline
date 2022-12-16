@@ -43,6 +43,13 @@ service cloud.firestore {
 
     match /matches/{matchId} {
       allow read;
+
+      match /actions/{actionId} {
+        allow create: if requestData().size() == 3
+                      && 'createdAt' in requestData() && requestData().createdAt is timestamp
+                      && 'userAction' in requestData() && requestData().userAction is string
+                      && 'userId' in requestData() && requestData().userId is string;
+      }
     }
   }
 }
