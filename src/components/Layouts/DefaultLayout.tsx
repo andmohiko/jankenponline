@@ -10,21 +10,18 @@ import { GlobalFooter } from '~/components/Navigation/GlobalFooter'
 import { GlobalHeader } from '~/components/Navigation/GlobalHeader'
 import { useUserState } from '~/hooks/useUserState'
 import { request } from '~/lib/request'
-import UserRepository from '~/repositories/UserRepository'
 
 type Props = {
   children: ReactNode
   isShowBack?: boolean
 }
 
-const userRepository = new UserRepository()
-
 export const DefaultLayout = ({
   children,
   isShowBack = false,
 }: Props): ReactElement => {
   const { push } = useRouter()
-  const [user, setUser] = useUserState()
+  const [user, subscribeUser] = useUserState()
 
   useEffect(() => {
     request('/auth')
@@ -33,12 +30,12 @@ export const DefaultLayout = ({
           throw new Error('Failed auth')
         }
         const { data } = await res.json()
-        await userRepository.subscribeMe(data, setUser)
+        await subscribeUser(data)
       })
       .catch(() => {
         return push('/new')
       })
-  }, [push, setUser])
+  }, [push])
 
   if (user === undefined) {
     return <LoadingScreen />

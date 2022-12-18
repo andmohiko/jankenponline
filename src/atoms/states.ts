@@ -3,7 +3,7 @@ import { atom } from 'recoil'
 import { Match } from '~/entities/Match'
 import { User } from '~/entities/User'
 
-export const UserState = atom<User | undefined>({
+export const UserState = atom<User>({
   key: 'user',
   default: undefined,
 })

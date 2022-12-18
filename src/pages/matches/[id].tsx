@@ -20,7 +20,7 @@ const MatchPage: NextPage = () => {
 
   return (
     <DefaultLayout isShowBack>
-      {currentMatch && user ? (
+      {currentMatch ? (
         <BattleField match={currentMatch} user={user} />
       ) : (
         <LoadingScreen />
