@@ -63,14 +63,14 @@ export const BattleField = ({ match, user }: Props) => {
     >
       <MatchPlayerCard user={opponent} />
       <FlexBox>
+        <p>試合ID: {match?.matchId}</p>
         <p>試合ステータス: {MatchStatusLabel[match.status]}</p>
-        <p>ラウンド: {match.round}</p>
         <p>
           勝敗数: 自分 {me.wins} : 相手 {opponent.wins}
         </p>
+        <p>ラウンド: {match.round}</p>
+        <p>ターン: {match.turn}</p>
       </FlexBox>
-      {match?.matchId}
-      {MatchStatusLabel[match.status]}
       <FlexBox gap={20}>
         <JankenButtons current={currentHand} select={selectHand} />
         <BaseButton onClick={createThrow} disabled={!currentHand}>

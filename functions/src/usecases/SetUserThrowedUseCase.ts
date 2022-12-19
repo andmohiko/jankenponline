@@ -3,14 +3,14 @@ import { Throw } from '../entities/Throw'
 import { serverTimestamp } from '../firebase'
 import MatchRepository from '../repositories/MatchRepository'
 
-export default class SetUserReadyUseCase {
+export default class SetUserThrowedUseCase {
   matchRepository: MatchRepository
 
   constructor() {
     this.matchRepository = new MatchRepository()
   }
 
-  async execute(match: Match, throwedHand: Throw) {
+  async execute(match: Match, throwedHand: Throw): Promise<Array<MatchUser>> {
     const users: MatchUser[] = match.users.map((user) => {
       if (user.userId !== throwedHand.userId) {
         return user
@@ -24,5 +24,6 @@ export default class SetUserReadyUseCase {
       updatedAt: serverTimestamp,
       users,
     })
+    return users
   }
 }
