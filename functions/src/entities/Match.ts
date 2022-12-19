@@ -46,9 +46,11 @@ export type Match = {
 
 export type CreateMatchDto = {
   createdAt: admin.firestore.FieldValue
+  round: Match['round']
   rule: Match['rule']
   season: Match['season']
   status: Match['status']
+  turn: Match['turn']
   updatedAt: admin.firestore.FieldValue
   users: Match['users']
 }
