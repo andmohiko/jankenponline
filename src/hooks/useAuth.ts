@@ -1,13 +1,31 @@
-import { GoogleAuthProvider, signInWithPopup, User } from '@firebase/auth'
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  onAuthStateChanged,
+} from '@firebase/auth'
 import { useRouter } from 'next/router'
+import { useRecoilState } from 'recoil'
 
+import type { User } from '@firebase/auth'
+
+import { UidState } from '~/atoms/states'
 import { DefaultIconUrl } from '~/entities/User'
 import { auth, serverTimestamp } from '~/lib/firebase'
 import UserRepository from '~/repositories/UserRepository'
 
 export const useAuth = () => {
   const { push } = useRouter()
+  const [uid, setUid] = useRecoilState(UidState)
   const userRepository = new UserRepository()
+
+  const getCurrentUser = async () => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        return push('/new')
+      }
+      setUid(user.uid)
+    })
+  }
 
   const googleLogin = async () => {
     const googleProvider = new GoogleAuthProvider()
@@ -15,6 +33,7 @@ export const useAuth = () => {
       .then(async (val) => {
         const userData = val.user
         const uid = userData.uid
+        setUid(uid)
 
         const isUser = await userRepository.isExists(uid)
 
@@ -36,6 +55,7 @@ export const useAuth = () => {
       })
   }
   return {
+    getCurrentUser,
     googleLogin,
   }
 }
