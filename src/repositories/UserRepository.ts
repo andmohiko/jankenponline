@@ -1,14 +1,24 @@
-import { doc, onSnapshot } from 'firebase/firestore'
+import { doc, getDoc, onSnapshot, setDoc } from 'firebase/firestore'
 
 import type { SetterOrUpdater } from 'recoil'
 
-import { User, UserId, UsersCollection } from '~/entities/User'
+import {
+  AuthId,
+  CreateUserDto,
+  User,
+  UserId,
+  UsersCollection,
+} from '~/entities/User'
 import { db } from '~/lib/firebase'
 import { convertDate } from '~/utils/convertDate'
 
 const dateColumns = ['createdAt', 'updatedAt']
 
 export default class UserRepository {
+  async create(authId: AuthId, dto: CreateUserDto): Promise<void> {
+    setDoc(doc(db, UsersCollection, authId), dto)
+  }
+
   async subscribeMe(
     userId: UserId,
     setUser: SetterOrUpdater<User>,
@@ -28,5 +38,10 @@ export default class UserRepository {
       })
       return user
     })
+  }
+
+  async isExists(authId: AuthId): Promise<boolean> {
+    const snapshot = await getDoc(doc(db, UsersCollection, authId))
+    return snapshot.exists()
   }
 }

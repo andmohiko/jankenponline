@@ -20,17 +20,21 @@ service cloud.firestore {
     match /users/{userId} {
       allow read;
       allow create: if isSignedIn()
-                        && isUser(userId)
-                        && requestData().size() == 4
-                        && 'createdAt' in requestData() && requestData().createdAt is timestamp
-                        && 'rating' in requestData() && requestData().rating is number
-                        && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                        && 'username' in requestData() && requestData().username is string;
+                    && isUser(userId)
+                    && requestData().size() == 6
+                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
+                    && 'profileImageUrl' in requestData() && requestData().profileImageUrl is string
+                    && 'rating' in requestData() && requestData().rating is number
+                    && 'status' in requestData() && requestData().status is string
+                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
+                    && 'username' in requestData() && requestData().username is string;
     }
 
     match /matchRequests/{matchRequestId} {
       allow read: if isSignedIn();
-      allow create: if requestData().size() == 8
+      allow create: if isSignedIn()
+                    && isUser(userId)
+                    && requestData().size() == 8
                     && 'createdAt' in requestData() && requestData().createdAt is timestamp
                     && 'matchingDeadline' in requestData() && requestData().matchingDeadline is timestamp
                     && 'profileImageUrl' in requestData() && requestData().profileImageUrl is string
@@ -42,17 +46,21 @@ service cloud.firestore {
     }
 
     match /matches/{matchId} {
-      allow read;
+      allow read: if isSignedIn();
 
       match /actions/{actionId} {
-        allow create: if requestData().size() == 3
+        allow create: if isSignedIn()
+                      && isUser(userId)
+                      && requestData().size() == 3
                       && 'createdAt' in requestData() && requestData().createdAt is timestamp
                       && 'userAction' in requestData() && requestData().userAction is string
                       && 'userId' in requestData() && requestData().userId is string;
       }
 
       match /throws/{throwId} {
-        allow create: if requestData().size() == 5
+        allow create: if isSignedIn()
+                      && isUser(userId)
+                      && requestData().size() == 5
                       && 'createdAt' in requestData() && requestData().createdAt is timestamp
                       && 'hand' in requestData() && requestData().hand is string
                       && 'round' in requestData() && requestData().round is number
