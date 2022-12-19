@@ -47,7 +47,7 @@ export type MatchUser = {
 export type Match = {
   matchId: MatchId
   createdAt: FieldValue
-  loserUserId: UserId
+  loser: UserId
   round: number
   roundWinnerIds: Array<UserId>
   rule: Rule
@@ -56,5 +56,5 @@ export type Match = {
   turn: number
   updatedAt: FieldValue
   users: Array<MatchUser>
-  winnerUserId: UserId
+  winner: UserId
 }
