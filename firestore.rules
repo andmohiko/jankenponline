@@ -20,12 +20,14 @@ service cloud.firestore {
     match /users/{userId} {
       allow read;
       allow create: if isSignedIn()
-                        && isUser(userId)
-                        && requestData().size() == 4
-                        && 'createdAt' in requestData() && requestData().createdAt is timestamp
-                        && 'rating' in requestData() && requestData().rating is number
-                        && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
-                        && 'username' in requestData() && requestData().username is string;
+                    && isUser(userId)
+                    && requestData().size() == 6
+                    && 'createdAt' in requestData() && requestData().createdAt is timestamp
+                    && 'profileImageUrl' in requestData() && requestData().profileImageUrl is string
+                    && 'rating' in requestData() && requestData().rating is number
+                    && 'status' in requestData() && requestData().status is string
+                    && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
+                    && 'username' in requestData() && requestData().username is string;
     }
 
     match /matchRequests/{matchRequestId} {
