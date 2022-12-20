@@ -18,6 +18,7 @@ export type JoinMatch = {
   opponentAfterMatchRating: User['rating'] | null
   ratingDiff: Rating | null
   result: Result | null
+  rule: Match['rule']
   season: Match['season']
   updatedAt: Date
 }
@@ -33,6 +34,7 @@ export type CreateJoinMatchDto = {
   opponentAfterMatchRating: JoinMatch['opponentAfterMatchRating']
   ratingDiff: JoinMatch['ratingDiff']
   result: JoinMatch['result']
+  rule: JoinMatch['rule']
   season: JoinMatch['season']
   updatedAt: admin.firestore.FieldValue
 }

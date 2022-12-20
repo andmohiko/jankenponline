@@ -71,6 +71,8 @@ export default class MatchUsersUseCase {
       opponentBeforeMatchRating: opponent.rating,
       ratingDiff: null,
       result: null,
+      rule,
+      season,
       updatedAt: serverTimestamp,
     })
     this.joinMatchRepository.createByBatch(batch, opponent.userId, matchId, {
@@ -84,6 +86,8 @@ export default class MatchUsersUseCase {
       opponentBeforeMatchRating: me.rating,
       ratingDiff: null,
       result: null,
+      rule,
+      season,
       updatedAt: serverTimestamp,
     })
 

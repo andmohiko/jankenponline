@@ -61,9 +61,7 @@ export default class TurnEndingUseCase {
     if (user1wins < 3) {
       this.matchRepository.updateByBatch(batch, match.matchId, {
         round: increment(1),
-        roundWinnerIds: admin.firestore.FieldValue.arrayUnion(
-          turnResult.winner,
-        ),
+        roundWinners: [...match.roundWinners, turnResult.winner!],
         turn: 1,
         users: match.users.map((u) => {
           return {
@@ -88,7 +86,7 @@ export default class TurnEndingUseCase {
 
     this.matchRepository.updateByBatch(batch, match.matchId, {
       loser,
-      roundWinnerIds: admin.firestore.FieldValue.arrayUnion(turnResult.winner),
+      roundWinners: [...match.roundWinners, turnResult.winner!],
       status: 'finish',
       users: match.users.map((u) => {
         return {

@@ -65,7 +65,7 @@ export type UpdateMatchDto = {
   loser?: Match['loser']
   ratingDiff?: Match['ratingDiff']
   round?: Match['round'] | admin.firestore.FieldValue
-  roundWinners?: admin.firestore.FieldValue
+  roundWinners?: Match['roundWinners']
   status?: Match['status']
   turn?: Match['turn'] | admin.firestore.FieldValue
   updatedAt: admin.firestore.FieldValue
