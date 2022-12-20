@@ -22,6 +22,10 @@ export type User = {
   profileImageUrl: string
   rating: Rating
   status: UserStatus
+  seasonWins: number
+  seasonLoses: number
+  totalWins: number
+  totalLoses: number
   updatedAt: Date
   username: string
 }
@@ -30,6 +34,10 @@ export type CreateUserDto = {
   createdAt: FieldValue
   profileImageUrl: User['profileImageUrl']
   rating: User['rating']
+  seasonWins: User['seasonWins']
+  seasonLoses: User['seasonLoses']
+  totalWins: User['totalWins']
+  totalLoses: User['totalLoses']
   status: User['status']
   updatedAt: FieldValue
   username: User['username']

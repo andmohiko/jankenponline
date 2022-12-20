@@ -48,11 +48,15 @@ export default class UpdateRatingUseCase {
     this.userRepository.updateByBatch(batch, turnExitStatus.winner, {
       currentMatch: null,
       rating: increment(ratingDiff),
+      seasonWins: increment(1),
+      totalWins: increment(1),
       updatedAt: serverTimestamp,
     })
     this.userRepository.updateByBatch(batch, turnExitStatus.loser, {
       currentMatch: null,
       rating: increment(-ratingDiff),
+      seasonLoses: increment(1),
+      totalLoses: increment(1),
       updatedAt: serverTimestamp,
     })
 

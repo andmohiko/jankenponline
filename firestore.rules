@@ -21,11 +21,15 @@ service cloud.firestore {
       allow read;
       allow create: if isSignedIn()
                     && isUser(userId)
-                    && requestData().size() == 6
+                    && requestData().size() == 10
                     && 'createdAt' in requestData() && requestData().createdAt is timestamp
                     && 'profileImageUrl' in requestData() && requestData().profileImageUrl is string
                     && 'rating' in requestData() && requestData().rating is number
                     && 'status' in requestData() && requestData().status is string
+                    && 'seasonWins' in requestData() && requestData().seasonWins is number
+                    && 'seasonLoses' in requestData() && requestData().seasonLoses is number
+                    && 'totalWins' in requestData() && requestData().totalWins is number
+                    && 'totalLoses' in requestData() && requestData().totalLoses is number
                     && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
                     && 'username' in requestData() && requestData().username is string;
 

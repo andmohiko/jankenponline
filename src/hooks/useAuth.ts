@@ -42,7 +42,11 @@ export const useAuth = () => {
             createdAt: serverTimestamp,
             profileImageUrl: userData.photoURL ?? DefaultIconUrl,
             rating: 1500,
+            seasonLoses: 0,
+            seasonWins: 0,
             status: 'initial',
+            totalLoses: 0,
+            totalWins: 0,
             updatedAt: serverTimestamp,
             username: getInitialUsername(userData),
           })

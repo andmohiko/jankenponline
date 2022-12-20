@@ -19,6 +19,10 @@ export type User = {
   profileImageUrl: string
   rating: Rating
   status: UserStatus
+  seasonWins: number
+  seasonLoses: number
+  totalWins: number
+  totalLoses: number
   updatedAt: Date
   username: string
 }
@@ -26,6 +30,10 @@ export type User = {
 export type UpdateUserDto = {
   currentMatch?: User['currentMatch']
   rating?: admin.firestore.FieldValue
+  seasonWins?: admin.firestore.FieldValue
+  seasonLoses?: admin.firestore.FieldValue
+  totalWins?: admin.firestore.FieldValue
+  totalLoses?: admin.firestore.FieldValue
   status?: User['status']
   updatedAt: admin.firestore.FieldValue
 }
