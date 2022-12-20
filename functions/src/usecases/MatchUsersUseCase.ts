@@ -47,6 +47,7 @@ export default class MatchUsersUseCase {
 
     const matchId = this.matchRepository.createByBatch(batch, {
       createdAt: serverTimestamp,
+      ratingDiff: null,
       round: 1,
       rule,
       season,
@@ -58,17 +59,27 @@ export default class MatchUsersUseCase {
 
     this.joinMatchRepository.createByBatch(batch, me.userId, matchId, {
       createdAt: serverTimestamp,
+      myAfterMatchRating: null,
+      myBeforeMatchRating: me.rating,
       opponentId: opponent.userId,
       opponentName: opponent.username,
       opponentProfileIconUrl: opponent.profileImageUrl,
+      opponentAfterMatchRating: null,
+      opponentBeforeMatchRating: opponent.rating,
+      ratingDiff: null,
       result: null,
       updatedAt: serverTimestamp,
     })
     this.joinMatchRepository.createByBatch(batch, opponent.userId, matchId, {
       createdAt: serverTimestamp,
+      myAfterMatchRating: null,
+      myBeforeMatchRating: opponent.rating,
       opponentId: me.userId,
       opponentName: me.username,
       opponentProfileIconUrl: me.profileImageUrl,
+      opponentAfterMatchRating: null,
+      opponentBeforeMatchRating: me.rating,
+      ratingDiff: null,
       result: null,
       updatedAt: serverTimestamp,
     })

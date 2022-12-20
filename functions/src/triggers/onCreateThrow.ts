@@ -3,10 +3,10 @@ import * as functions from 'firebase-functions'
 import { db } from '../firebase'
 import MatchRepository from '../repositories/MatchRepository'
 import ThrowRepository from '../repositories/ThrowRepository'
-import CalcRatingUseCase from '../usecases/CalcRatingUseCase'
 import JudgeTurnResultUseCase from '../usecases/JudgeTurnResultUseCase'
 import SetUserThrowedUseCase from '../usecases/SetUserThrowedUseCase'
 import TurnEndingUseCase from '../usecases/TurnEndingUseCase'
+import UpdateRatingUseCase from '../usecases/UpdateRatingUseCase'
 import { triggerOnce } from '../utils/triggerOnce'
 
 const throwRepository = new ThrowRepository()
@@ -14,7 +14,7 @@ const matchRepository = new MatchRepository()
 const setUserThrowedUseCase = new SetUserThrowedUseCase()
 const judgeTurnResultUseCase = new JudgeTurnResultUseCase()
 const turnEndingUseCase = new TurnEndingUseCase()
-const calcRatingUseCase = new CalcRatingUseCase()
+const updateRatingUseCase = new UpdateRatingUseCase()
 
 const onCreateThrow = functions.firestore
   .document('matches/{matchId}/throws/{throwId}')
@@ -62,7 +62,7 @@ const onCreateThrow = functions.firestore
 
         // 試合終了のときはレート計算する
         if (turnExitStatus.status === 'finish') {
-          calcRatingUseCase.execute(batch, match, turnExitStatus)
+          updateRatingUseCase.execute(batch, match, turnExitStatus)
         }
 
         await batch.commit()

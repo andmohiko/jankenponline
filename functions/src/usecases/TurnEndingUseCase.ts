@@ -52,12 +52,13 @@ export default class TurnEndingUseCase {
     }
 
     const user1wins =
-      match.users.filter((u) => u.userId === turnResult.winner).length + 1
-    const user2wins = match.users.filter(
+      match.users.find((u) => u.userId === turnResult.winner)!.wins + 1
+    const user2wins = match.users.find(
       (u) => u.userId === turnResult.loser,
-    ).length
+    )!.wins
     // 次のラウンドにいくとき
-    if (user1wins < 3 && user2wins < 3) {
+    // 勝った方がまだ3勝していなければ次のラウンドに行く
+    if (user1wins < 3) {
       this.matchRepository.updateByBatch(batch, match.matchId, {
         round: increment(1),
         roundWinnerIds: admin.firestore.FieldValue.arrayUnion(
@@ -88,6 +89,7 @@ export default class TurnEndingUseCase {
     this.matchRepository.updateByBatch(batch, match.matchId, {
       loser,
       roundWinnerIds: admin.firestore.FieldValue.arrayUnion(turnResult.winner),
+      status: 'finish',
       users: match.users.map((u) => {
         return {
           ...u,
