@@ -13,6 +13,20 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "throws",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "round",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "turn",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ]
 }

@@ -38,4 +38,13 @@ export default class MatchRepository {
   async update(matchId: MatchId, dto: UpdateMatchDto) {
     await db.collection(MatchesCollection).doc(matchId).update(dto)
   }
+
+  updateByBatch(
+    batch: admin.firestore.WriteBatch,
+    matchId: MatchId,
+    dto: UpdateMatchDto,
+  ) {
+    const ref = db.collection(MatchesCollection).doc(matchId)
+    batch.update(ref, dto)
+  }
 }

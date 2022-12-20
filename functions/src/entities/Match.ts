@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin'
 
+import { Rating } from '../entities/Rating'
 import { User, UserId } from '../entities/User'
 import { DocId } from '../entities/index'
 
@@ -32,7 +33,8 @@ export type MatchUser = {
 export type Match = {
   matchId: MatchId
   createdAt: Date
-  loserUserId: UserId
+  loser: UserId | null
+  ratingDiff: Rating | null
   round: number
   roundWinnerIds: Array<UserId>
   rule: Rule
@@ -41,20 +43,32 @@ export type Match = {
   turn: number
   updatedAt: Date
   users: Array<MatchUser>
-  winnerUserId: UserId
+  winner: UserId
 }
 
 export type CreateMatchDto = {
   createdAt: admin.firestore.FieldValue
+  loser: Match['loser']
+  ratingDiff: Match['ratingDiff']
+  round: Match['round']
+  roundWinnerIds: Match['roundWinnerIds']
   rule: Match['rule']
   season: Match['season']
   status: Match['status']
+  turn: Match['turn']
   updatedAt: admin.firestore.FieldValue
   users: Match['users']
+  winner: Match['winner']
 }
 
 export type UpdateMatchDto = {
+  loser?: Match['loser']
+  ratingDiff?: Match['ratingDiff']
+  round?: Match['round'] | admin.firestore.FieldValue
+  roundWinnerIds?: admin.firestore.FieldValue
   status?: Match['status']
+  turn?: Match['turn'] | admin.firestore.FieldValue
   updatedAt: admin.firestore.FieldValue
   users?: Match['users']
+  winner?: Match['winner']
 }
