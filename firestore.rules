@@ -41,7 +41,7 @@ service cloud.firestore {
     match /matchRequests/{matchRequestId} {
       allow read: if isSignedIn();
       allow create: if isSignedIn()
-                    && isUser(userId)
+                    && isUser(requestData().userId)
                     && requestData().size() == 8
                     && 'createdAt' in requestData() && requestData().createdAt is timestamp
                     && 'matchingDeadline' in requestData() && requestData().matchingDeadline is timestamp
@@ -58,7 +58,7 @@ service cloud.firestore {
 
       match /actions/{actionId} {
         allow create: if isSignedIn()
-                      && isUser(userId)
+                      && isUser(requestData().userId)
                       && requestData().size() == 3
                       && 'createdAt' in requestData() && requestData().createdAt is timestamp
                       && 'userAction' in requestData() && requestData().userAction is string
@@ -67,7 +67,7 @@ service cloud.firestore {
 
       match /throws/{throwId} {
         allow create: if isSignedIn()
-                      && isUser(userId)
+                      && isUser(requestData().userId)
                       && requestData().size() == 5
                       && 'createdAt' in requestData() && requestData().createdAt is timestamp
                       && 'hand' in requestData() && requestData().hand is string

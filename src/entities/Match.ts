@@ -54,7 +54,7 @@ export type Match = {
   loser: UserId | null
   ratingDiff: Rating | null
   round: number
-  roundWinnerIds: Array<UserId>
+  roundWinners: Array<UserId>
   rule: Rule
   season: number
   status: MatchStatus

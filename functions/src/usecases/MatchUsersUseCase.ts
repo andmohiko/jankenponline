@@ -47,14 +47,17 @@ export default class MatchUsersUseCase {
 
     const matchId = this.matchRepository.createByBatch(batch, {
       createdAt: serverTimestamp,
+      loser: null,
       ratingDiff: null,
       round: 1,
+      roundWinners: [],
       rule,
       season,
       status: 'initial',
       turn: 1,
       updatedAt: serverTimestamp,
       users: [me, opponent],
+      winner: null,
     })
 
     this.joinMatchRepository.createByBatch(batch, me.userId, matchId, {

@@ -72,7 +72,7 @@ export default class UpdateRatingUseCase {
       myAfterMatchRating: loserOriginalRating - ratingDiff,
       opponentAfterMatchRating: winnerOriginalRating + ratingDiff,
       ratingDiff,
-      result: 'win',
+      result: 'lose',
       updatedAt: serverTimestamp,
     })
   }

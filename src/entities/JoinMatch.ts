@@ -1,4 +1,4 @@
-import { MatchId, Result } from '~/entities/Match'
+import { MatchId, Match, Result } from '~/entities/Match'
 import { Rating } from '~/entities/Rating'
 import { User, UserId } from '~/entities/User'
 
@@ -16,5 +16,6 @@ export type JoinMatch = {
   opponentAfterMatchRating: User['rating'] | null
   ratingDiff: Rating | null
   result: Result | null
+  season: Match['season']
   updatedAt: Date
 }

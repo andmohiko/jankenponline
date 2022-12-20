@@ -1,6 +1,6 @@
 import * as admin from 'firebase-admin'
 
-import { MatchId, Result } from '../entities/Match'
+import { Match, MatchId, Result } from '../entities/Match'
 import { Rating } from '../entities/Rating'
 import { User, UserId } from '../entities/User'
 
@@ -18,6 +18,7 @@ export type JoinMatch = {
   opponentAfterMatchRating: User['rating'] | null
   ratingDiff: Rating | null
   result: Result | null
+  season: Match['season']
   updatedAt: Date
 }
 
@@ -32,6 +33,7 @@ export type CreateJoinMatchDto = {
   opponentAfterMatchRating: JoinMatch['opponentAfterMatchRating']
   ratingDiff: JoinMatch['ratingDiff']
   result: JoinMatch['result']
+  season: JoinMatch['season']
   updatedAt: admin.firestore.FieldValue
 }
 
