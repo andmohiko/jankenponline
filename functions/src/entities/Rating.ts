@@ -15,6 +15,8 @@ const clamp = (point: number): number => {
 }
 
 export const calcRating = (winnerRate: Rating, loserRate: Rating): Rating => {
-  const point = ELO_K / (10 ** ((winnerRate - loserRate) / 400) + 1)
+  const point =
+    Math.round((ELO_K / (10 ** ((winnerRate - loserRate) / 400) + 1)) * 100) /
+    100
   return clamp(point)
 }
