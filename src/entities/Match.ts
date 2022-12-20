@@ -10,6 +10,11 @@ export type Rule = 'gachi' | 'casual'
 
 export type Result = 'win' | 'lose'
 
+export const ResultLabel: StringKeyObject = {
+  win: '勝ち',
+  lose: '負け',
+}
+
 export type MatchStatus = 'initial' | 'preparing' | 'fighting' | 'finish'
 
 export const MatchStatusLabel: StringKeyObject = {
