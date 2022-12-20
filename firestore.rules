@@ -28,6 +28,10 @@ service cloud.firestore {
                     && 'status' in requestData() && requestData().status is string
                     && 'updatedAt' in requestData() && requestData().updatedAt is timestamp
                     && 'username' in requestData() && requestData().username is string;
+
+      match /joinMatches/{joinMatchId} {
+        allow read: if isSignedIn() && isUser(userId);
+      }
     }
 
     match /matchRequests/{matchRequestId} {

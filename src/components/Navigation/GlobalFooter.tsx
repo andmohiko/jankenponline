@@ -7,7 +7,7 @@ import { MdOutlineLeaderboard } from 'react-icons/md'
 
 import { FlexBox } from '~/components/Base/FlexBox'
 import { User } from '~/entities/User'
-const baseColor = '#999999'
+const baseColor = '#777777'
 const activeColor = '#ff00ff'
 
 type Props = {
@@ -82,14 +82,15 @@ type NavLinkItemProps = {
 
 const NavLinkItem = ({ icon, href, label, color }: NavLinkItemProps) => {
   return (
-    <Link href={href}>
-      <>
+    <Link href={href} passHref>
+      <a>
         <FlexBox
           justify="center"
           align="center"
           gap={4}
           style={{
             width: 64,
+            cursor: 'pointer',
           }}
         >
           {icon}
@@ -103,7 +104,7 @@ const NavLinkItem = ({ icon, href, label, color }: NavLinkItemProps) => {
             {label}
           </span>
         </FlexBox>
-      </>
+      </a>
     </Link>
   )
 }
