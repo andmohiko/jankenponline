@@ -1,5 +1,4 @@
-import { FieldValue } from 'firebase/firestore'
-
+import { Rating } from '~/entities/Rating'
 import { User, UserId } from '~/entities/User'
 import { DocId, StringKeyObject } from '~/entities/index'
 
@@ -46,15 +45,16 @@ export type MatchUser = {
 
 export type Match = {
   matchId: MatchId
-  createdAt: FieldValue
-  loser: UserId
+  createdAt: Date
+  loser: UserId | null
+  ratingDiff: Rating | null
   round: number
   roundWinnerIds: Array<UserId>
   rule: Rule
   season: number
   status: MatchStatus
   turn: number
-  updatedAt: FieldValue
+  updatedAt: Date
   users: Array<MatchUser>
   winner: UserId
 }

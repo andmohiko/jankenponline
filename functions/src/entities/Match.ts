@@ -33,7 +33,7 @@ export type MatchUser = {
 export type Match = {
   matchId: MatchId
   createdAt: Date
-  loser: UserId
+  loser: UserId | null
   ratingDiff: Rating | null
   round: number
   roundWinnerIds: Array<UserId>
@@ -48,14 +48,17 @@ export type Match = {
 
 export type CreateMatchDto = {
   createdAt: admin.firestore.FieldValue
+  loser: Match['loser']
   ratingDiff: Match['ratingDiff']
   round: Match['round']
+  roundWinnerIds: Match['roundWinnerIds']
   rule: Match['rule']
   season: Match['season']
   status: Match['status']
   turn: Match['turn']
   updatedAt: admin.firestore.FieldValue
   users: Match['users']
+  winner: Match['winner']
 }
 
 export type UpdateMatchDto = {

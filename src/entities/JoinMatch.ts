@@ -1,17 +1,20 @@
-import { FieldValue } from 'firebase/firestore'
-
 import { MatchId, Result } from '~/entities/Match'
+import { Rating } from '~/entities/Rating'
 import { User, UserId } from '~/entities/User'
 
 export const JoinMatchesCollection = 'joinMatches'
 
 export type JoinMatch = {
   matchId: MatchId
-  createdAt: FieldValue
+  createdAt: Date
+  myBeforeMatchRating: User['rating']
+  myAfterMatchRating: User['rating'] | null
   opponentId: UserId
   opponentName: User['username']
-  opponentProfileImageUrl: User['profileImageUrl']
-  result: Result
-  season: number
-  updatedAt: FieldValue
+  opponentProfileIconUrl: User['profileImageUrl']
+  opponentBeforeMatchRating: User['rating']
+  opponentAfterMatchRating: User['rating'] | null
+  ratingDiff: Rating | null
+  result: Result | null
+  updatedAt: Date
 }
